@@ -130,7 +130,7 @@ Point *farthestPointsFromOrigin(Point *points, int numPoints) {
 }
 
 void deletePoints(Point *points) {
-    delete points;
+    delete[] points;
 }
 
 
