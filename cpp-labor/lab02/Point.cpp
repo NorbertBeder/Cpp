@@ -21,6 +21,7 @@ int Point::getY() const {
     return y;
 }
 
+
 void Point::print() const {
         std::cout << "(" << x << ", " << y << ") ";
 }
