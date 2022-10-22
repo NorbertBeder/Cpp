@@ -16,6 +16,7 @@ public:
 
     Matrix(const Matrix& what);
 
+    Matrix( Matrix&& what );
 
     ~Matrix();
 
@@ -31,6 +32,19 @@ public:
     int getCols() const { return this->mCols;}
 
     friend Matrix operator+(const Matrix& x, const Matrix& y);
+
+    friend Matrix operator*(const Matrix& x, const Matrix& y);
+
+    Matrix & operator=(const Matrix& mat);
+
+    Matrix & operator=(Matrix&& mat) noexcept;
+
+    friend istream & operator>>(istream& is, Matrix& mat);
+
+    friend ostream & operator<<(ostream& os, const Matrix& mat);
+
+    double* operator[] (int index);
+
 
 private:
     double ** mElements;
