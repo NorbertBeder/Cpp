@@ -17,7 +17,7 @@ public:
 
     virtual void print(ostream &os) const;
 
-    int getId();
+    int getId() const;
 };
 
 #endif //CPP_2022_ALKALMAZOTT_H

@@ -17,6 +17,9 @@ public:
     Manager(const string& vezetekNev, const string& keresztNev, int szuletesiEv, const string& munkakor);
     void addAlkalmazott(Alkalmazott* alkalmazott);
     void deleteAlkalmazott(Alkalmazott* alkalmazott);
+    virtual void print(ostream &os) const;
+    unsigned int beosztottakSzama();
+
 };
 
 #endif //CPP_2022_MANAGER_H

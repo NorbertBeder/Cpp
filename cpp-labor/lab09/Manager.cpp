@@ -17,7 +17,22 @@ void Manager::addAlkalmazott(Alkalmazott *alkalmazott) {
 }
 
 void Manager::deleteAlkalmazott(Alkalmazott *alkalmazott) {
-    const int id = alkalmazott->getId();
+    int id = alkalmazott->getId();
+    beosztottak.erase(remove_if(beosztottak.begin(), beosztottak.end(), [&id](const Alkalmazott* wantedAlkalmazott){
+        return id == wantedAlkalmazott->getId();
+    }), beosztottak.end());
+}
 
+void Manager::print(ostream &os) const {
+    Alkalmazott::print(os);
+    os << "\n\tBeosztottjai: \n\t   ";
+    for(Alkalmazott *alkalmazott : beosztottak){
+        alkalmazott->print(os);
+        os << "\n\t   ";
+    }
+}
+
+unsigned int Manager::beosztottakSzama() {
+    return beosztottak.size();
 }
 

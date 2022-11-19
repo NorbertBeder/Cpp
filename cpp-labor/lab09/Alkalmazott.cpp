@@ -20,6 +20,6 @@ void Alkalmazott::print(ostream &os) const {
     os << " " << munkakor;
 }
 
-int Alkalmazott::getId() {
+int Alkalmazott::getId() const {
     return this->id;
 }
