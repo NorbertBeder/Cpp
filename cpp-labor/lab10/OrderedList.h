@@ -32,6 +32,8 @@ public:
     void insert(const T& what);
     bool isEmpty();
     void remove(const T& what);
+    int size() const;
+    bool find(T &value) const;
 };
 
 template< class T, class LessComp, class Equal >
@@ -89,18 +91,22 @@ void OrderedList<T, LessComp, Equal>::insert(const T &what) {
 
 template<class T, class LessComp, class Equal>
 void OrderedList<T, LessComp, Equal>::remove(const T &what) {
-    Node* actNode = first;
-    Node* prevNode = nullptr;
-    while (actNode != nullptr && !(Equal()(actNode->value, what))){
+    Node *actNode = first;
+    Node *prevNode = nullptr;
+    while (actNode != nullptr) {
+        if (actNode->value == what && actNode == first) {
+            first = actNode->next;
+            delete actNode;
+            break;
+        }
+        if (actNode->value == what) {
+            prevNode->next = actNode->next;
+            delete actNode;
+            break;
+        }
         prevNode = actNode;
         actNode = actNode->next;
     }
-    if(prevNode == nullptr){
-        return;
-    }
-    delete prevNode->next;
-    prevNode->next->next = actNode;
-    --numElements;
 }
 
 template<class T, class LessComp, class Equal>
@@ -114,10 +120,25 @@ OrderedList<T, LessComp, Equal>::~OrderedList() {
 
 template<class T, class LessComp, class Equal>
 bool OrderedList<T, LessComp, Equal>::isEmpty() {
-    return first == nullptr;
+    return numElements == 0;
 }
 
+template<class T, class LessComp, class Equal>
+int OrderedList<T, LessComp, Equal>::size() const {
+    return numElements;
+}
 
+template<class T, class LessComp, class Equal>
+bool OrderedList<T, LessComp, Equal>::find(T &value) const {
+    auto *actNode = first;
+    while (actNode != nullptr){
+        if (Equal()(actNode->value, value)){
+            return true;
+        }
+        actNode = actNode->next;
+    }
+    return false;
+}
 
 
 #endif //CPP_2022_ORDEREDLIST_H

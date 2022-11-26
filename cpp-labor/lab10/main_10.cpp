@@ -1,3 +1,4 @@
+#include <ctime>
 #include "OrderedList.h"
 
 struct Person {
@@ -26,15 +27,7 @@ struct PersonEqual {
 
 int main() {
 
-//    OrderedList<Person, PersonLess, PersonEqual> pl;
-//    pl.insert(Person("Balazs", "Istvan"));
-//    pl.insert(Person("Andras", "Eva"));
-//    pl.insert(Person("Balazs", "Emoke"));
-//    pl.insert(Person("Petres", "Andras"));
-//    cout << "Persons: ";
-//    pl.listElements(cout);
-//    cout << endl;
-
+    srand(time(nullptr));
     OrderedList<int> l;
     for (int i = 0; i < 30; ++i) {
         int v = rand() % 100;
@@ -42,17 +35,39 @@ int main() {
     }
 
     cout << endl;
-    Iterator<int> it( l );
-    while( it.hasNext() ){
-        cout<<it.next()<<" ";
+    Iterator<int> it1( l );
+    while( it1.hasNext() ){
+        cout<<it1.next()<<" ";
     }
     cout<<endl;
-//    for( int i=0; i<10; ++i ){
-//        int t = rand() % 10;
-//        cout<<"\nTorlendo: "<<t<<endl;
-//        l.remove( t );
-//        l.listElements(cout);
-//    }
+    for( int i=0; i<10; ++i ){
+        int t = rand() % 10;
+        cout<<"\nTorlendo: "<<t<<endl;
+        l.remove( t );
+        l.listElements(cout);
+    }
+    cout << endl << endl;
+
+    OrderedList<Person, PersonLess, PersonEqual> pl;
+    pl.insert(Person("Balazs", "Istvan"));
+    pl.insert(Person("Andras", "Eva"));
+    pl.insert(Person("Balazs", "Emoke"));
+    pl.insert(Person("Petres", "Andras"));
+    cout << "Persons: ";
+    pl.listElements(cout);
+    cout << endl;
+    cout << "Persons using iterator: ";
+    Iterator<Person, PersonLess, PersonEqual> it(pl);
+    while (it.hasNext()) {
+        cout << it.next() << "  ";
+    }
+    cout << endl << endl;
+    Person person("Balazs", "Istvan");
+    auto result = pl.find(person);
+    cout << "Does " << person << "exist? " << (result ? "YES" : "NO") << endl;
+    person.fname = "Szanto";
+    result = pl.find(person);
+    cout << "Does " << person << "exist? " << (result ? "YES" : "NO") << endl;
 
     return 0;
 }
