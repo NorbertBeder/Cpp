@@ -10,7 +10,7 @@ int SettlementStatisticsImpl::numSettlements() const {
 
 int SettlementStatisticsImpl::numCounties() const {
     unordered_set<string> set;
-    for(auto &item : this->data){
+    for (auto &item: this->data) {
         set.insert(item.first);
     }
     return set.size();
@@ -18,8 +18,8 @@ int SettlementStatisticsImpl::numCounties() const {
 
 int SettlementStatisticsImpl::numSettlementsByCounty(const string &county) const {
     int counter = 0;
-    for(auto &item : this->data){
-        if(item.first == county){
+    for (auto &item: this->data) {
+        if (item.first == county) {
             counter++;
         }
     }
@@ -27,14 +27,33 @@ int SettlementStatisticsImpl::numSettlementsByCounty(const string &county) const
 }
 
 vector<Settlement> SettlementStatisticsImpl::findSettlementsByCounty(const string &county) const {
-    return vector<Settlement>();
+    vector<Settlement> settlements;
+    for (auto &s: data) {
+        if (s.first == county) {
+            settlements.emplace_back(s.second);
+        }
+    }
+    return settlements;
 }
 
 Settlement SettlementStatisticsImpl::findSettlementsByNameAndCounty(const string &name, const string &county) const {
-    return Settlement();
+    Settlement settlement;
+    for (auto &s : data){
+        if (s.first == county && s.second.getName() == name){
+            settlement.setCounty(s.first);
+            settlement.setPopulation(s.second.getPopulation());
+            settlement.setName(s.second.getName());
+        }
+    }
+    if (settlement.getName().empty()){
+        cout << "Not found" << endl;
+    }
+    return settlement;
 }
 
 Settlement SettlementStatisticsImpl::maxPopulationDensity() const {
+
+    // a density-hez nem kellene ismerjuk a helyseg nagysagat is kilometerben? mert az nelkul nem tudom mit kellene itt es a minimumnal csinalni
     return Settlement();
 }
 
@@ -43,7 +62,13 @@ Settlement SettlementStatisticsImpl::minPopulationDensity() const {
 }
 
 vector<Settlement> SettlementStatisticsImpl::findSettlementsByName(const string &name) {
-    return vector<Settlement>();
+    vector<Settlement> settlements;
+    for (auto &s: data) {
+        if (s.second.getName() == name) {
+            settlements.emplace_back(s.second);
+        }
+    }
+    return settlements;
 }
 
 SettlementStatisticsImpl::SettlementStatisticsImpl(const string &fileName) {

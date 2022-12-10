@@ -30,6 +30,9 @@ public:
     int getPopulation() const;
 
     void setPopulation(int population);
+
+    friend ostream &operator<<(ostream &os, const Settlement &settlement);
+
 };
 
 

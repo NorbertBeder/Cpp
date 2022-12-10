@@ -9,7 +9,8 @@ Student GraduationServiceImpl::findById(int id) const {
 }
 
 double GraduationServiceImpl::getResultByIdAndSubject(int id, const string &subject) const {
-    return 0;
+    Student student = dao->findById(id);
+    return student.getGrade(subject);
 }
 
 GraduationServiceImpl::GraduationServiceImpl(GraduationDao *dao) : dao(dao) {};

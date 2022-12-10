@@ -32,3 +32,8 @@ int Settlement::getPopulation() const {
 void Settlement::setPopulation(int population) {
     Settlement::population = population;
 }
+
+ostream &operator<<(ostream &os, const Settlement &settlement) {
+    os << settlement.getName() << " - " << settlement.getCounty() << " (" << settlement.getPopulation() << ")";
+    return os;
+}
